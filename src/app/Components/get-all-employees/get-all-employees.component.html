@@ -1,0 +1,69 @@
+<section class="row container-fluid">
+  <div></div>
+  <div class="col-12">
+    <section style="background-color: #eee">
+      <div class="container">
+        <div class="row">
+          <div class="input-group mt-3 mx-5">
+            <span
+              class="input-group-text mt-5 ms-5"
+              id="inputGroup-sizing-default"
+              >Search</span
+            >
+            <input
+              type="text"
+              [(ngModel)]="employeeName"
+              placeholder="search"
+              class="form-control mt-5 me-5"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default"
+            />
+          </div>
+          <app-add-employee class="m-3"></app-add-employee>
+
+          <div
+            class="col-xxl-3 col-lg-4 col-md-6"
+            *ngFor="let Emp of employees | filter: employeeName"
+          >
+            <div class="card-sl mb-5 d-block">
+              <div class="card-image">
+                <img
+                  alt=""
+                  style="width: 100%; height: 300px"
+                  src="http://localhost:4265/Resources/Images/{{ Emp?.image }}"
+                />
+              </div>
+              <a class="card-action" href="#"
+                ><i>
+                  <img
+                    alt=""
+                    src="/assets/images/heart.png"
+                    style="width: 20px; height: 20px" /></i
+              ></a>
+              <div class="card-heading">
+                {{ Emp.firstName }} {{ Emp.lastName }}
+              </div>
+
+              <div class="card-text">
+                {{ Emp.birthDate | date: "yyyy-MM-dd" }}
+              </div>
+              <button
+                (click)="delete(Emp.id)"
+                class="card-button bg-danger d-block"
+                style="border: none"
+              >
+                Delete
+              </button>
+              <a routerLink="/employee/{{ Emp.id }}" class="card-button">
+                View Details</a
+              >
+              <a routerLink="/employee/update/{{ Emp.id }}" class="card-button">
+                update</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>

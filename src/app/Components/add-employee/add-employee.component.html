@@ -1,0 +1,144 @@
+<!-- Button trigger modal -->
+<button
+  type="button"
+  class="btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#staticBackdrop"
+>
+  Add Employee
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Add New Employee</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form #NewEmp="ngForm">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">First Name</label
+            ><input
+              name="FirstName"
+              [(ngModel)]="employee.firstName"
+              type="input"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+            />
+            <div class="text-danger" *ngIf="employee.firstName == ''">
+              Requierd firstName
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label"
+              >Last Name</label
+            ><input
+              name="LastName"
+              [(ngModel)]="employee.lastName"
+              type="input"
+              class="form-control"
+              id="exampleInputPassword1"
+            />
+            <div class="text-danger" *ngIf="employee.lastName == ''">
+              Requierd lastName
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Phone</label
+            ><input
+              name="Phone"
+              [(ngModel)]="employee.phone"
+              type="input"
+              class="form-control"
+              id="exampleInputPassword1"
+            />
+            <div class="text-danger" *ngIf="employee.phone == ''">
+              Requierd phone
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label"
+              >Birth Date</label
+            >
+            <input
+              name="Date"
+              [(ngModel)]="employee.birthDate"
+              type="date"
+              class="form-control"
+              id="exampleInputPassword1"
+            />
+          </div>
+          <select
+            class="form-control"
+            name="selectDept"
+            [(ngModel)]="employee.deptId"
+          >
+            <option *ngFor="let dept of AllDepartments" [value]="dept.id">
+              {{ dept.deptName }}
+            </option>
+          </select>
+          <div class="row" style="margin-bottom: 15px">
+            <div class="col-md-3 w-100">
+              <input
+                type="file"
+                #file
+                [(ngModel)]="employee.image"
+                placeholder="Choose file"
+                (change)="uploadFile(file?.files, file.value)"
+                style="display: none"
+              />
+
+              <button
+                type="button"
+                class="btn btn-light"
+                (click)="file.click()"
+              >
+                Upload Image
+              </button>
+              <div class="text-danger" *ngIf="employee.image == ''">
+                Requierd image
+              </div>
+            </div>
+            <div class="col-md-4">
+              <span class="upload" *ngIf="progress > 0"> {{ progress }}% </span>
+
+              <span class="upload" *ngIf="message">
+                {{ message }}
+              </span>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button
+          type="submit"
+          data-bs-dismiss="modal"
+          (click)="AddNewEmployee(employee)"
+          class="btn btn-primary"
+        >
+          Add
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
